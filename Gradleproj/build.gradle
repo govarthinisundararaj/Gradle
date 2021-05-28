@@ -2,6 +2,7 @@ plugins {
 	id 'org.springframework.boot' version '2.1.8.RELEASE'
 	id 'io.spring.dependency-management' version '1.0.8.RELEASE'
 	id 'java'
+	id 'jacoco'
 }
 
 group = 'io.reflectoring'
@@ -16,9 +17,9 @@ repositories {
 dependencies {
 	implementation 'org.springframework.boot:spring-boot-starter-web'
 	testImplementation 'org.springframework.boot:spring-boot-starter-test'
-	implementation 'org.apache.logging.log4j:log4j-api:2.14.1'
-	implementation 'org.apache.logging.log4j:log4j-core:2.14.1'
-	implementation 'org.springframework.boot:spring-boot-starter-tomcat'
+	//implementation 'org.apache.logging.log4j:log4j-api:2.14.1'
+	//implementation 'org.apache.logging.log4j:log4j-core:2.14.1'
+	//implementation 'org.springframework.boot:spring-boot-starter-tomcat'
 	testImplementation'org.junit.jupiter:junit-jupiter:5.4.0'
 	testImplementation 'org.junit.platform:junit-platform-launcher:1.4.0'
 	testImplementation 'org.mockito:mockito-junit-jupiter:2.23.0'
@@ -28,9 +29,14 @@ dependencies {
 	annotationProcessor 'org.projectlombok:lombok'
 }
 
-test {
-	systemProperty 'de.adesso.junitinsights.enabled', 'true'
-	systemProperty 'junit.jupiter.extensions.autodetection.enabled', 'true'
-	useJUnitPlatform()
-}
+test
 
+ {
+	//systemProperty 'de.adesso.junitinsights.enabled', 'true'
+	//systemProperty 'junit.jupiter.extensions.autodetection.enabled', 'true'
+	//useJUnitPlatform()
+    finalizedBy jacocoTestReport
+}
+jacocoTestReport {
+    dependsOn test
+}
